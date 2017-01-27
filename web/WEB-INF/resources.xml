@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <Resource id="ventins" type="javax.sql.DataSource">#Thu Jan 26 19:22:49 COT 2017
+jdbcDriver=org.postgresql.Driver
+password=ventins_2017
+userName=ventins_2017
+jdbcUrl=jdbc\:postgresql\://localhost\:5432/ventins
+</Resource>
+</resources>
