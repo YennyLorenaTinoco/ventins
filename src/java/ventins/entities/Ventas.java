@@ -6,8 +6,8 @@
 package ventins.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author lorena
  */
 @Entity
-@Table(name = "ventas", catalog = "ventins", schema = "ventins")
+@Table(name = "ventas")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ventas.findAll", query = "SELECT v FROM Ventas v")
@@ -81,7 +81,7 @@ public class Ventas implements Serializable {
     @ManyToOne(optional = false)
     private Usuarios usuId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ventaId")
-    private List<VentaDetalle> ventaDetalleList;
+    private Collection<VentaDetalle> ventaDetalleCollection;
 
     public Ventas() {
     }
@@ -172,12 +172,12 @@ public class Ventas implements Serializable {
     }
 
     @XmlTransient
-    public List<VentaDetalle> getVentaDetalleList() {
-        return ventaDetalleList;
+    public Collection<VentaDetalle> getVentaDetalleCollection() {
+        return ventaDetalleCollection;
     }
 
-    public void setVentaDetalleList(List<VentaDetalle> ventaDetalleList) {
-        this.ventaDetalleList = ventaDetalleList;
+    public void setVentaDetalleCollection(Collection<VentaDetalle> ventaDetalleCollection) {
+        this.ventaDetalleCollection = ventaDetalleCollection;
     }
 
     @Override

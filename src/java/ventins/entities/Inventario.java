@@ -7,9 +7,7 @@ package ventins.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -17,20 +15,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author lorena
  */
 @Entity
-@Table(name = "inventario", catalog = "ventins", schema = "ventins")
+@Table(name = "inventario")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i")
@@ -50,8 +46,6 @@ public class Inventario implements Serializable {
     @NotNull
     @Column(name = "inv_cantidad")
     private long invCantidad;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventario")
-    private List<BasicaTipo> basicaTipoList;
     @JoinColumn(name = "bat_grupo", referencedColumnName = "bat_id")
     @ManyToOne(optional = false)
     private BasicaTipo batGrupo;
@@ -106,15 +100,6 @@ public class Inventario implements Serializable {
 
     public void setInvCantidad(long invCantidad) {
         this.invCantidad = invCantidad;
-    }
-
-    @XmlTransient
-    public List<BasicaTipo> getBasicaTipoList() {
-        return basicaTipoList;
-    }
-
-    public void setBasicaTipoList(List<BasicaTipo> basicaTipoList) {
-        this.basicaTipoList = basicaTipoList;
     }
 
     public BasicaTipo getBatGrupo() {

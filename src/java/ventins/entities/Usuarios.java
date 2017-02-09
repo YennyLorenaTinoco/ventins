@@ -6,7 +6,7 @@
 package ventins.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author lorena
  */
 @Entity
-@Table(name = "usuarios", catalog = "ventins", schema = "ventins")
+@Table(name = "usuarios")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u")
@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuarios.findByUsuIden", query = "SELECT u FROM Usuarios u WHERE u.usuIden = :usuIden")
     , @NamedQuery(name = "Usuarios.findByUsuApellidos", query = "SELECT u FROM Usuarios u WHERE u.usuApellidos = :usuApellidos")
     , @NamedQuery(name = "Usuarios.findByUsuLogin", query = "SELECT u FROM Usuarios u WHERE u.usuLogin = :usuLogin")
-    , @NamedQuery(name = "Usuarios.findByUsuPass", query = "SELECT u FROM Usuarios u WHERE u.usuPass = :usuPass")})
+    , @NamedQuery(name = "Usuarios.findByUsuPass", query = "SELECT u FROM Usuarios u WHERE u.usuPass = :usuPass")
+    , @NamedQuery(name = "Usuarios.findByUsuEstado", query = "SELECT u FROM Usuarios u WHERE u.usuEstado = :usuEstado")})
 public class Usuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -70,21 +71,27 @@ public class Usuarios implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "usu_pass")
     private String usuPass;
+    @Size(max = 2)
+    @Column(name = "usu_estado")
+    private String usuEstado;
+    @JoinColumn(name = "per_id", referencedColumnName = "per_id")
+    @ManyToOne
+    private BPerfiles perId;
     @JoinColumn(name = "bat_tipo_doc", referencedColumnName = "bat_id")
     @ManyToOne(optional = false)
     private BasicaTipo batTipoDoc;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuIdGas")
-    private List<Gastos> gastosList;
+    private Collection<Gastos> gastosCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuIdGen")
-    private List<Gastos> gastosList1;
+    private Collection<Gastos> gastosCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId")
-    private List<Ventas> ventasList;
+    private Collection<Ventas> ventasCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuRegFacCompra")
-    private List<FacturasCompra> facturasCompraList;
+    private Collection<FacturasCompra> facturasCompraCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuCancFacCompra")
-    private List<FacturasCompra> facturasCompraList1;
+    private Collection<FacturasCompra> facturasCompraCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId")
-    private List<Cajas> cajasList;
+    private Collection<Cajas> cajasCollection;
 
     public Usuarios() {
     }
@@ -150,6 +157,22 @@ public class Usuarios implements Serializable {
         this.usuPass = usuPass;
     }
 
+    public String getUsuEstado() {
+        return usuEstado;
+    }
+
+    public void setUsuEstado(String usuEstado) {
+        this.usuEstado = usuEstado;
+    }
+
+    public BPerfiles getPerId() {
+        return perId;
+    }
+
+    public void setPerId(BPerfiles perId) {
+        this.perId = perId;
+    }
+
     public BasicaTipo getBatTipoDoc() {
         return batTipoDoc;
     }
@@ -159,57 +182,57 @@ public class Usuarios implements Serializable {
     }
 
     @XmlTransient
-    public List<Gastos> getGastosList() {
-        return gastosList;
+    public Collection<Gastos> getGastosCollection() {
+        return gastosCollection;
     }
 
-    public void setGastosList(List<Gastos> gastosList) {
-        this.gastosList = gastosList;
-    }
-
-    @XmlTransient
-    public List<Gastos> getGastosList1() {
-        return gastosList1;
-    }
-
-    public void setGastosList1(List<Gastos> gastosList1) {
-        this.gastosList1 = gastosList1;
+    public void setGastosCollection(Collection<Gastos> gastosCollection) {
+        this.gastosCollection = gastosCollection;
     }
 
     @XmlTransient
-    public List<Ventas> getVentasList() {
-        return ventasList;
+    public Collection<Gastos> getGastosCollection1() {
+        return gastosCollection1;
     }
 
-    public void setVentasList(List<Ventas> ventasList) {
-        this.ventasList = ventasList;
-    }
-
-    @XmlTransient
-    public List<FacturasCompra> getFacturasCompraList() {
-        return facturasCompraList;
-    }
-
-    public void setFacturasCompraList(List<FacturasCompra> facturasCompraList) {
-        this.facturasCompraList = facturasCompraList;
+    public void setGastosCollection1(Collection<Gastos> gastosCollection1) {
+        this.gastosCollection1 = gastosCollection1;
     }
 
     @XmlTransient
-    public List<FacturasCompra> getFacturasCompraList1() {
-        return facturasCompraList1;
+    public Collection<Ventas> getVentasCollection() {
+        return ventasCollection;
     }
 
-    public void setFacturasCompraList1(List<FacturasCompra> facturasCompraList1) {
-        this.facturasCompraList1 = facturasCompraList1;
+    public void setVentasCollection(Collection<Ventas> ventasCollection) {
+        this.ventasCollection = ventasCollection;
     }
 
     @XmlTransient
-    public List<Cajas> getCajasList() {
-        return cajasList;
+    public Collection<FacturasCompra> getFacturasCompraCollection() {
+        return facturasCompraCollection;
     }
 
-    public void setCajasList(List<Cajas> cajasList) {
-        this.cajasList = cajasList;
+    public void setFacturasCompraCollection(Collection<FacturasCompra> facturasCompraCollection) {
+        this.facturasCompraCollection = facturasCompraCollection;
+    }
+
+    @XmlTransient
+    public Collection<FacturasCompra> getFacturasCompraCollection1() {
+        return facturasCompraCollection1;
+    }
+
+    public void setFacturasCompraCollection1(Collection<FacturasCompra> facturasCompraCollection1) {
+        this.facturasCompraCollection1 = facturasCompraCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Cajas> getCajasCollection() {
+        return cajasCollection;
+    }
+
+    public void setCajasCollection(Collection<Cajas> cajasCollection) {
+        this.cajasCollection = cajasCollection;
     }
 
     @Override

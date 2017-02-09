@@ -6,7 +6,7 @@
 package ventins.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author lorena
  */
 @Entity
-@Table(name = "basica_tabla", catalog = "ventins", schema = "ventins")
+@Table(name = "basica_tabla")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BasicaTabla.findAll", query = "SELECT b FROM BasicaTabla b")
@@ -50,7 +50,7 @@ public class BasicaTabla implements Serializable {
     @Column(name = "btl_descriptor")
     private String btlDescriptor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "btlId")
-    private List<BasicaTipo> basicaTipoList;
+    private Collection<BasicaTipo> basicaTipoCollection;
 
     public BasicaTabla() {
     }
@@ -89,12 +89,12 @@ public class BasicaTabla implements Serializable {
     }
 
     @XmlTransient
-    public List<BasicaTipo> getBasicaTipoList() {
-        return basicaTipoList;
+    public Collection<BasicaTipo> getBasicaTipoCollection() {
+        return basicaTipoCollection;
     }
 
-    public void setBasicaTipoList(List<BasicaTipo> basicaTipoList) {
-        this.basicaTipoList = basicaTipoList;
+    public void setBasicaTipoCollection(Collection<BasicaTipo> basicaTipoCollection) {
+        this.basicaTipoCollection = basicaTipoCollection;
     }
 
     @Override

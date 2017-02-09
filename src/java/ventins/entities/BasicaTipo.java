@@ -6,14 +6,13 @@
 package ventins.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author lorena
  */
 @Entity
-@Table(name = "basica_tipo", catalog = "ventins", schema = "ventins")
+@Table(name = "basica_tipo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BasicaTipo.findAll", query = "SELECT b FROM BasicaTipo b")
@@ -64,45 +63,40 @@ public class BasicaTipo implements Serializable {
     @Column(name = "bat_descriptor2")
     private String batDescriptor2;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batTipoDoc")
-    private List<Usuarios> usuariosList;
+    private Collection<Usuarios> usuariosCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batConcGasto")
-    private List<Gastos> gastosList;
+    private Collection<Gastos> gastosCollection;
     @OneToMany(mappedBy = "batPais")
-    private List<Proveedores> proveedoresList;
+    private Collection<Proveedores> proveedoresCollection;
     @OneToMany(mappedBy = "batMun")
-    private List<Proveedores> proveedoresList1;
+    private Collection<Proveedores> proveedoresCollection1;
     @OneToMany(mappedBy = "batDepto")
-    private List<Proveedores> proveedoresList2;
+    private Collection<Proveedores> proveedoresCollection2;
     @JoinColumn(name = "btl_id", referencedColumnName = "btl_id")
     @ManyToOne(optional = false)
     private BasicaTabla btlId;
-    @JoinColumns({
-        @JoinColumn(name = "inv_id", referencedColumnName = "inv_id")
-        , @JoinColumn(name = "inv_lote", referencedColumnName = "inv_lote")})
-    @ManyToOne(optional = false)
-    private Inventario inventario;
     @OneToMany(mappedBy = "batTipoDoc")
-    private List<Clientes> clientesList;
+    private Collection<Clientes> clientesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batPais")
-    private List<Empresa> empresaList;
+    private Collection<Empresa> empresaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batDepto")
-    private List<Empresa> empresaList1;
+    private Collection<Empresa> empresaCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batMun")
-    private List<Empresa> empresaList2;
+    private Collection<Empresa> empresaCollection2;
     @OneToMany(mappedBy = "batBarrio")
-    private List<Empresa> empresaList3;
+    private Collection<Empresa> empresaCollection3;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batConcCompra")
-    private List<FacturasCompra> facturasCompraList;
+    private Collection<FacturasCompra> facturasCompraCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batGrupo")
-    private List<Inventario> inventarioList;
+    private Collection<Inventario> inventarioCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batNivel")
-    private List<Inventario> inventarioList1;
+    private Collection<Inventario> inventarioCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batEstante")
-    private List<Inventario> inventarioList2;
+    private Collection<Inventario> inventarioCollection2;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batUni")
-    private List<Inventario> inventarioList3;
+    private Collection<Inventario> inventarioCollection3;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodCodigo")
-    private List<Productos> productosList;
+    private Collection<Productos> productosCollection;
 
     public BasicaTipo() {
     }
@@ -165,48 +159,48 @@ public class BasicaTipo implements Serializable {
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosList() {
-        return usuariosList;
+    public Collection<Usuarios> getUsuariosCollection() {
+        return usuariosCollection;
     }
 
-    public void setUsuariosList(List<Usuarios> usuariosList) {
-        this.usuariosList = usuariosList;
-    }
-
-    @XmlTransient
-    public List<Gastos> getGastosList() {
-        return gastosList;
-    }
-
-    public void setGastosList(List<Gastos> gastosList) {
-        this.gastosList = gastosList;
+    public void setUsuariosCollection(Collection<Usuarios> usuariosCollection) {
+        this.usuariosCollection = usuariosCollection;
     }
 
     @XmlTransient
-    public List<Proveedores> getProveedoresList() {
-        return proveedoresList;
+    public Collection<Gastos> getGastosCollection() {
+        return gastosCollection;
     }
 
-    public void setProveedoresList(List<Proveedores> proveedoresList) {
-        this.proveedoresList = proveedoresList;
-    }
-
-    @XmlTransient
-    public List<Proveedores> getProveedoresList1() {
-        return proveedoresList1;
-    }
-
-    public void setProveedoresList1(List<Proveedores> proveedoresList1) {
-        this.proveedoresList1 = proveedoresList1;
+    public void setGastosCollection(Collection<Gastos> gastosCollection) {
+        this.gastosCollection = gastosCollection;
     }
 
     @XmlTransient
-    public List<Proveedores> getProveedoresList2() {
-        return proveedoresList2;
+    public Collection<Proveedores> getProveedoresCollection() {
+        return proveedoresCollection;
     }
 
-    public void setProveedoresList2(List<Proveedores> proveedoresList2) {
-        this.proveedoresList2 = proveedoresList2;
+    public void setProveedoresCollection(Collection<Proveedores> proveedoresCollection) {
+        this.proveedoresCollection = proveedoresCollection;
+    }
+
+    @XmlTransient
+    public Collection<Proveedores> getProveedoresCollection1() {
+        return proveedoresCollection1;
+    }
+
+    public void setProveedoresCollection1(Collection<Proveedores> proveedoresCollection1) {
+        this.proveedoresCollection1 = proveedoresCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Proveedores> getProveedoresCollection2() {
+        return proveedoresCollection2;
+    }
+
+    public void setProveedoresCollection2(Collection<Proveedores> proveedoresCollection2) {
+        this.proveedoresCollection2 = proveedoresCollection2;
     }
 
     public BasicaTabla getBtlId() {
@@ -217,111 +211,103 @@ public class BasicaTipo implements Serializable {
         this.btlId = btlId;
     }
 
-    public Inventario getInventario() {
-        return inventario;
+    @XmlTransient
+    public Collection<Clientes> getClientesCollection() {
+        return clientesCollection;
     }
 
-    public void setInventario(Inventario inventario) {
-        this.inventario = inventario;
+    public void setClientesCollection(Collection<Clientes> clientesCollection) {
+        this.clientesCollection = clientesCollection;
     }
 
     @XmlTransient
-    public List<Clientes> getClientesList() {
-        return clientesList;
+    public Collection<Empresa> getEmpresaCollection() {
+        return empresaCollection;
     }
 
-    public void setClientesList(List<Clientes> clientesList) {
-        this.clientesList = clientesList;
-    }
-
-    @XmlTransient
-    public List<Empresa> getEmpresaList() {
-        return empresaList;
-    }
-
-    public void setEmpresaList(List<Empresa> empresaList) {
-        this.empresaList = empresaList;
+    public void setEmpresaCollection(Collection<Empresa> empresaCollection) {
+        this.empresaCollection = empresaCollection;
     }
 
     @XmlTransient
-    public List<Empresa> getEmpresaList1() {
-        return empresaList1;
+    public Collection<Empresa> getEmpresaCollection1() {
+        return empresaCollection1;
     }
 
-    public void setEmpresaList1(List<Empresa> empresaList1) {
-        this.empresaList1 = empresaList1;
-    }
-
-    @XmlTransient
-    public List<Empresa> getEmpresaList2() {
-        return empresaList2;
-    }
-
-    public void setEmpresaList2(List<Empresa> empresaList2) {
-        this.empresaList2 = empresaList2;
+    public void setEmpresaCollection1(Collection<Empresa> empresaCollection1) {
+        this.empresaCollection1 = empresaCollection1;
     }
 
     @XmlTransient
-    public List<Empresa> getEmpresaList3() {
-        return empresaList3;
+    public Collection<Empresa> getEmpresaCollection2() {
+        return empresaCollection2;
     }
 
-    public void setEmpresaList3(List<Empresa> empresaList3) {
-        this.empresaList3 = empresaList3;
-    }
-
-    @XmlTransient
-    public List<FacturasCompra> getFacturasCompraList() {
-        return facturasCompraList;
-    }
-
-    public void setFacturasCompraList(List<FacturasCompra> facturasCompraList) {
-        this.facturasCompraList = facturasCompraList;
+    public void setEmpresaCollection2(Collection<Empresa> empresaCollection2) {
+        this.empresaCollection2 = empresaCollection2;
     }
 
     @XmlTransient
-    public List<Inventario> getInventarioList() {
-        return inventarioList;
+    public Collection<Empresa> getEmpresaCollection3() {
+        return empresaCollection3;
     }
 
-    public void setInventarioList(List<Inventario> inventarioList) {
-        this.inventarioList = inventarioList;
-    }
-
-    @XmlTransient
-    public List<Inventario> getInventarioList1() {
-        return inventarioList1;
-    }
-
-    public void setInventarioList1(List<Inventario> inventarioList1) {
-        this.inventarioList1 = inventarioList1;
+    public void setEmpresaCollection3(Collection<Empresa> empresaCollection3) {
+        this.empresaCollection3 = empresaCollection3;
     }
 
     @XmlTransient
-    public List<Inventario> getInventarioList2() {
-        return inventarioList2;
+    public Collection<FacturasCompra> getFacturasCompraCollection() {
+        return facturasCompraCollection;
     }
 
-    public void setInventarioList2(List<Inventario> inventarioList2) {
-        this.inventarioList2 = inventarioList2;
-    }
-
-    @XmlTransient
-    public List<Inventario> getInventarioList3() {
-        return inventarioList3;
-    }
-
-    public void setInventarioList3(List<Inventario> inventarioList3) {
-        this.inventarioList3 = inventarioList3;
+    public void setFacturasCompraCollection(Collection<FacturasCompra> facturasCompraCollection) {
+        this.facturasCompraCollection = facturasCompraCollection;
     }
 
     @XmlTransient
-    public List<Productos> getProductosList() {
-        return productosList;
+    public Collection<Inventario> getInventarioCollection() {
+        return inventarioCollection;
     }
 
-    public void setProductosList(List<Productos> productosList) {
-        this.productosList = productosList;
+    public void setInventarioCollection(Collection<Inventario> inventarioCollection) {
+        this.inventarioCollection = inventarioCollection;
+    }
+
+    @XmlTransient
+    public Collection<Inventario> getInventarioCollection1() {
+        return inventarioCollection1;
+    }
+
+    public void setInventarioCollection1(Collection<Inventario> inventarioCollection1) {
+        this.inventarioCollection1 = inventarioCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Inventario> getInventarioCollection2() {
+        return inventarioCollection2;
+    }
+
+    public void setInventarioCollection2(Collection<Inventario> inventarioCollection2) {
+        this.inventarioCollection2 = inventarioCollection2;
+    }
+
+    @XmlTransient
+    public Collection<Inventario> getInventarioCollection3() {
+        return inventarioCollection3;
+    }
+
+    public void setInventarioCollection3(Collection<Inventario> inventarioCollection3) {
+        this.inventarioCollection3 = inventarioCollection3;
+    }
+
+    @XmlTransient
+    public Collection<Productos> getProductosCollection() {
+        return productosCollection;
+    }
+
+    public void setProductosCollection(Collection<Productos> productosCollection) {
+        this.productosCollection = productosCollection;
     }
 
     @Override

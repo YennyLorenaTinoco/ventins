@@ -6,7 +6,7 @@
 package ventins.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author lorena
  */
 @Entity
-@Table(name = "clientes", catalog = "ventins", schema = "ventins")
+@Table(name = "clientes")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Clientes.findAll", query = "SELECT c FROM Clientes c")
@@ -60,7 +60,7 @@ public class Clientes implements Serializable {
     @Column(name = "cliente_direccion")
     private String clienteDireccion;
     @OneToMany(mappedBy = "clienteId")
-    private List<Ventas> ventasList;
+    private Collection<Ventas> ventasCollection;
     @JoinColumn(name = "bat_tipo_doc", referencedColumnName = "bat_id")
     @ManyToOne
     private BasicaTipo batTipoDoc;
@@ -119,12 +119,12 @@ public class Clientes implements Serializable {
     }
 
     @XmlTransient
-    public List<Ventas> getVentasList() {
-        return ventasList;
+    public Collection<Ventas> getVentasCollection() {
+        return ventasCollection;
     }
 
-    public void setVentasList(List<Ventas> ventasList) {
-        this.ventasList = ventasList;
+    public void setVentasCollection(Collection<Ventas> ventasCollection) {
+        this.ventasCollection = ventasCollection;
     }
 
     public BasicaTipo getBatTipoDoc() {

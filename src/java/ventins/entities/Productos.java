@@ -6,7 +6,7 @@
 package ventins.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author lorena
  */
 @Entity
-@Table(name = "productos", catalog = "ventins", schema = "ventins")
+@Table(name = "productos")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Productos.findAll", query = "SELECT p FROM Productos p")
@@ -67,11 +67,11 @@ public class Productos implements Serializable {
     @Column(name = "prod_tipo_medida")
     private String prodTipoMedida;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodId")
-    private List<FacturasComprasDet> facturasComprasDetList;
+    private Collection<FacturasComprasDet> facturasComprasDetCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodId")
-    private List<VentaDetalle> ventaDetalleList;
+    private Collection<VentaDetalle> ventaDetalleCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodId")
-    private List<Inventario> inventarioList;
+    private Collection<Inventario> inventarioCollection;
     @JoinColumn(name = "prod_codigo", referencedColumnName = "bat_id")
     @ManyToOne(optional = false)
     private BasicaTipo prodCodigo;
@@ -140,30 +140,30 @@ public class Productos implements Serializable {
     }
 
     @XmlTransient
-    public List<FacturasComprasDet> getFacturasComprasDetList() {
-        return facturasComprasDetList;
+    public Collection<FacturasComprasDet> getFacturasComprasDetCollection() {
+        return facturasComprasDetCollection;
     }
 
-    public void setFacturasComprasDetList(List<FacturasComprasDet> facturasComprasDetList) {
-        this.facturasComprasDetList = facturasComprasDetList;
-    }
-
-    @XmlTransient
-    public List<VentaDetalle> getVentaDetalleList() {
-        return ventaDetalleList;
-    }
-
-    public void setVentaDetalleList(List<VentaDetalle> ventaDetalleList) {
-        this.ventaDetalleList = ventaDetalleList;
+    public void setFacturasComprasDetCollection(Collection<FacturasComprasDet> facturasComprasDetCollection) {
+        this.facturasComprasDetCollection = facturasComprasDetCollection;
     }
 
     @XmlTransient
-    public List<Inventario> getInventarioList() {
-        return inventarioList;
+    public Collection<VentaDetalle> getVentaDetalleCollection() {
+        return ventaDetalleCollection;
     }
 
-    public void setInventarioList(List<Inventario> inventarioList) {
-        this.inventarioList = inventarioList;
+    public void setVentaDetalleCollection(Collection<VentaDetalle> ventaDetalleCollection) {
+        this.ventaDetalleCollection = ventaDetalleCollection;
+    }
+
+    @XmlTransient
+    public Collection<Inventario> getInventarioCollection() {
+        return inventarioCollection;
+    }
+
+    public void setInventarioCollection(Collection<Inventario> inventarioCollection) {
+        this.inventarioCollection = inventarioCollection;
     }
 
     public BasicaTipo getProdCodigo() {

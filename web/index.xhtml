@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Guper de Colombia</title>
+        <title>Ventins</title>
     </h:head>
     <h:body>
         <ui:composition template="/plantilla.xhtml">
@@ -16,13 +16,14 @@
                         <p:panel style="width: 60%;height: 70%; margin-top: 10%">
                             <img src="images/logo.png"/> 
                             <h:panelGrid columns="1">
-                                <p:inputText id="usuario" style="width: 350px;height: 30px;" ></p:inputText>    
+                                <p:inputText id="usuario" value="${loginController.cuenta}" style="width: 350px;height: 30px;" ></p:inputText>    
                                 <p:watermark for="usuario" value="Usuario" id="us" />
-                                <p:inputText id="pass" style="width: 350px;height: 30px;"></p:inputText>
+                                <p:password id="pass" value="${loginController.pass}" style="width: 350px;height: 30px;"></p:password>
                                 <p:watermark for="pass" value="Contraseña" id="con" />
                             </h:panelGrid>
-                            <p:commandButton value="Ingresar" action="/menu.xhtml?faces-redirect=true"/>
+                            <p:commandButton value="Ingresar" action="${loginController.login()}" update=":frmIndex"/>
                         </p:panel>
+                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
                     </div>
                 </h:form>
             </ui:define>

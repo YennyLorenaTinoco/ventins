@@ -6,8 +6,8 @@
 package ventins.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author lorena
  */
 @Entity
-@Table(name = "facturas_compra", catalog = "ventins", schema = "ventins")
+@Table(name = "facturas_compra")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FacturasCompra.findAll", query = "SELECT f FROM FacturasCompra f")
@@ -75,7 +75,7 @@ public class FacturasCompra implements Serializable {
     @Column(name = "estado_compra")
     private String estadoCompra;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facCompraId")
-    private List<FacturasComprasDet> facturasComprasDetList;
+    private Collection<FacturasComprasDet> facturasComprasDetCollection;
     @JoinColumn(name = "bat_conc_compra", referencedColumnName = "bat_id")
     @ManyToOne(optional = false)
     private BasicaTipo batConcCompra;
@@ -161,12 +161,12 @@ public class FacturasCompra implements Serializable {
     }
 
     @XmlTransient
-    public List<FacturasComprasDet> getFacturasComprasDetList() {
-        return facturasComprasDetList;
+    public Collection<FacturasComprasDet> getFacturasComprasDetCollection() {
+        return facturasComprasDetCollection;
     }
 
-    public void setFacturasComprasDetList(List<FacturasComprasDet> facturasComprasDetList) {
-        this.facturasComprasDetList = facturasComprasDetList;
+    public void setFacturasComprasDetCollection(Collection<FacturasComprasDet> facturasComprasDetCollection) {
+        this.facturasComprasDetCollection = facturasComprasDetCollection;
     }
 
     public BasicaTipo getBatConcCompra() {
