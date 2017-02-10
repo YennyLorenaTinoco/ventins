@@ -87,13 +87,13 @@ public class LoginController extends utiles.utiles {
             return "login";
         }
         pass = super.encriptar(pass);
+        if (usuario.getUsuEstado().equalsIgnoreCase("I")) {
+            context.addMessage(null, new FacesMessage("No tiene permiso para ingresar, por favor comuniquese con el administrador del sistema"));
+            return "login";
+        }
         if (!usuario.getUsuPass().equalsIgnoreCase(pass)) {
             context.addMessage(null, new FacesMessage("Contraseña incorrecta"));
             inicializarCampos();
-            return "login";
-        }
-        if (usuario.getUsuEstado().equalsIgnoreCase("I")) {
-            context.addMessage(null, new FacesMessage("No tiene permiso para ingresar, por favor comuniquese con el administrador del sistema"));
             return "login";
         }
         try {
@@ -108,7 +108,7 @@ public class LoginController extends utiles.utiles {
         nombreUsu = nom[0] + " " + ape[0];
         return "principal";
 //        generarPermisos();
-       // return "/Publicaciones.xhtml?faces-redirect=true";
+        // return "/Publicaciones.xhtml?faces-redirect=true";
     }
 
     public void inicializarCampos() {

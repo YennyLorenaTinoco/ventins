@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import ventins.entities.Usuarios;
 import javax.persistence.Query;
 
-
 /**
  *
  * @author lorena
@@ -34,7 +33,7 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> implements Usuarios
     @Override
     public Usuarios getLogin(Usuarios usu) {
         try {
-            Query q = em.createQuery("SELECT u FROM Usuarios u WHERE u.usuLogin =:login AND u.usuEstado ='A' ");
+            Query q = em.createQuery("SELECT u.usuId FROM Usuarios u WHERE u.usuLogin=:login");
             q.setParameter("login", usu.getUsuLogin());
             return (Usuarios) q.getSingleResult();
         } catch (Exception e) {
